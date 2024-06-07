@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/utils/counters.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
@@ -16,7 +16,7 @@ contract RealEstate is ERC721URIStorage {
 
     uint256 newItemId = _tokenIds.current();            //returns current valuu in tokenIds counter
         _mint(msg.sender,newItemId);                    //calling _mint function from ERC721Storage with "to" address (owner) and unique ID -newItemId for token to be minted
-        _setTOkenURI(newItemId,tokenURI);               //calling _setTokenURI function with params - Unique ID and new URI of the token to be minted
+        _setTokenURI(newItemId,tokenURI);               //calling _setTokenURI function with params - Unique ID and new URI of the token to be minted
 
         return newItemId;                               //returns unique ID of the newly minted token
     }

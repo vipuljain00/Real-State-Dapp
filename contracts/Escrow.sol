@@ -10,16 +10,17 @@ interface IERC721 {
 }
 
 contract Escrow {
+
     address public nftAddress;
     address payable public seller;
     address public inspector;
     address public lender;
 
     constructor(
-        address _nftAddress;
-        address payable _seller;
-        address _inspector;
-        address _lender;
+        address _nftAddress,
+        address payable _seller,
+        address _inspector,
+        address _lender
     ){
         nftAddress = _nftAddress;
         seller = _seller;
