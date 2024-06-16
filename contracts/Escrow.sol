@@ -21,10 +21,22 @@ contract Escrow {
         _;
     }
 
+    modifier onlyBuyer(uint _nftID){
+        require(msg.sender == buyer[_nftID],"Only buyer can call this method");
+        _;
+    }
+
+     modifier onlyInspector(){
+        require(msg.sender == inspector,"Only inspector can call this method");
+        _;
+    }
+
     mapping (uint256 => bool) public isListed;
     mapping (uint256 => uint256) public purchasePrice;
     mapping (uint256 => uint256) public escrowAmount;
     mapping (uint256 => address) public buyer;
+    mapping (uint256 => bool) public inspectionPassed;
+    mapping (uint256 => mapping (address => bool)) public approval;
 
     constructor(
         address _nftContractAddress,
@@ -52,4 +64,46 @@ contract Escrow {
         escrowAmount[_nftID] = _escrowAmount;
         buyer[_nftID] = _buyer;
     }
+
+    function depositEarnest(uint256 _nftID) public payable onlyBuyer(_nftID) {
+        require(msg.value >= escrowAmount[_nftID]);       
+    }
+
+    function updateInspectionStatus(uint _nftID, bool _passed) public onlyInspector{
+        inspectionPassed[_nftID] = _passed;
+    }
+
+    function approveSale(uint256 _nftID) public{
+        approval[_nftID][msg.sender] = true;
+    }
+
+    function finalizeSale(uint _nftID) public{
+        require(inspectionPassed[_nftID]);
+        require(approval[_nftID][buyer[_nftID]]);
+        require(approval[_nftID][seller]);
+        require(approval[_nftID][lender]);
+        require(address(this).balance >= purchasePrice[_nftID]);
+        //unlisting the NFT
+        isListed[_nftID] = false;
+        //sending all funds in escrow to seller
+        (bool success,)=payable(seller).call{value:address(this).balance}("");
+        require(success);
+        //transfer the NFT ownership to buyer
+        IERC721(nftContractAddress).transferFrom(address(this), buyer[_nftID], _nftID);
+    }
+
+    function cancelSale(uint256 _nftID) public{
+        if(inspectionPassed[_nftID]==false){
+            payable(buyer[_nftID]).transfer(address(this).balance);
+        }
+        else {
+            payable(seller).transfer(address(this).balance);
+        }
+    }
+
+    function getBalance() public view returns (uint256){
+        return address(this).balance;
+    }
+
+    receive() external payable{}    
 }
