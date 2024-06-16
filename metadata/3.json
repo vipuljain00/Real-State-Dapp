@@ -1,8 +1,8 @@
 {
-    "name": "WA Nature Home",
-    "address": "183 Woodland Drive, Camano Island, WA 98282",
+    "name": "4BHK Villa",
+    "address": "Whitefield, Banglore",
     "description": "Comfy island home on Camano Island",
-    "image": "https://ipfs.io/ipfs/QmQUozrHLAusXDxrvsESJ3PYB3rUeUuBAvVWw6nop2uu7c/3.png",
+    "image": "https://ipfs.io/ipfs/QmfXxostxNkUSKCyUKNwE2sdyBH2MRELEe1MY74PTsBseu?filename=villa.jpg",
     "id": "3",
     "attributes": [
         {
@@ -11,7 +11,7 @@
         },
         {
             "trait_type": "Type of Residence",
-            "value": "Single family residence"
+            "value": "Villa"
         },
         {
             "trait_type": "Bed Rooms",
