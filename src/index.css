@@ -29,9 +29,10 @@ nav {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
+  /* border: 1px solid #202020; */
 }
 
-.nav__brand {
+.brandname {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,12 +40,12 @@ nav {
   padding: 20px;
 }
 
-.nav__brand img {
+.brandname img {
   max-width: 125px;
   height: auto;
 }
 
-.nav__brand h1 {
+.brandname h1 {
   color: var(--clr-blue);
   font-size: 2.5em;
   font-weight: 800;
@@ -54,12 +55,14 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* border: 1px solid black; */
 
   list-style: none;
 }
 
 .nav__links li {
   margin: 0 15px;
+  /* border: 1px solid black; */
 }
 
 .nav__links li a {
@@ -102,6 +105,7 @@ header {
   background-position: center;
   background-size: cover;
   min-height: 40vh;
+  border: 1px solid black;
 
   position: relative;
 }
@@ -110,6 +114,7 @@ header {
   position: absolute;
   top: 25%;
   left: 50%;
+  /* border: 1px solid black; */
   transform: translate(-50%, -50%);
 
   color: var(--clr-white);
