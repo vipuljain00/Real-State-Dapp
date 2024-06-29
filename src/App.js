@@ -17,9 +17,7 @@ function App() {
  
   const [provider, setProvider] = useState(null)
   const [escrow, setEscrow] = useState(null)
-
   const [account, setAccount] = useState(null)
-
   const [homes, setHomes] = useState([])
   
   const loadBlockchainData = async () => {
@@ -28,30 +26,35 @@ function App() {
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         setProvider(provider)
         const network = await provider.getNetwork()
-        // const code = await provider.getCode(config[network.chainId].realEstate.address)
-        // console.log(code)
-
+        console.log("Providr : ", provider)
+        console.log("Network : ", network)
 
         //grtting accounts initially
         const accounts = await provider.send('eth_requestAccounts', []);
         const retreivedaccount = ethers.utils.getAddress(accounts[0])
-        setAccount(retreivedaccount);
+        setAccount(retreivedaccount)
+        console.log("Account on Metamask : ",account)
 
-        const realEstate = new ethers.Contract(config[network.chainId].realEstate.address, RealEstate, provider)
+        const realEstateAddress = config[network.chainId].realEstate.address;
+        const escrowAddress = config[network.chainId].escrow.address;
+        
+        // const code = await provider.getCode(realEstateAddress)
+        // console.log(code)
+
+        const realEstate = new ethers.Contract(realEstateAddress, RealEstate, provider)
         const totalSupply = await realEstate.totalSupply()   
-        // console.log(totalSupply.toString()); 
+        console.log("Total Supply of RealEstate NFTs : ", totalSupply.toString()); 
 
         const homeArray = []
-        for (var i = 1; i <= 3; i++) {
-          
+        for (let i = 1; i <= totalSupply; i++) {
           const uri = await realEstate.tokenURI(i)
-          console.log(uri)
+          console.log("URI : ", uri)
           const response = await fetch(uri)
           const metadata = await response.json()
           homeArray.push(metadata)
         }
         setHomes(homeArray)
-        // console.log(homes)
+        console.log("Homes Metadata : ", homes)
 
         const escrow = new ethers.Contract(config[network.chainId].escrow.address, Escrow, provider)
         setEscrow(escrow)
@@ -73,6 +76,7 @@ function App() {
   useEffect(()=>{
     loadBlockchainData()
   }, [])
+
   return (
     <div>
       <Navigation account={account} setAccount={setAccount}/>
@@ -89,7 +93,7 @@ function App() {
             <div className='card' key={index}>
 
               <div className='card_image'>
-                <img alt='Home Image' src={home.image}/>
+                <img src={home.image}/>
               </div>
 
               <div className='card__info'>
