@@ -19,6 +19,8 @@ function App() {
   const [escrow, setEscrow] = useState(null)
   const [account, setAccount] = useState(null)
   const [homes, setHomes] = useState([])
+  const [home, setHome] = useState({})
+  const [toggle,setToggle] = useState(false)
   
   const loadBlockchainData = async () => {
     if(window.ethereum){
@@ -48,13 +50,13 @@ function App() {
         const homeArray = []
         for (let i = 1; i <= totalSupply; i++) {
           const uri = await realEstate.tokenURI(i)
-          console.log("URI : ", uri)
+          // console.log(`URI ${i} : `, uri)
           const response = await fetch(uri)
           const metadata = await response.json()
           homeArray.push(metadata)
         }
         setHomes(homeArray)
-        console.log("Homes Metadata : ", homes)
+        // console.log("Homes Metadata : ", homes)
 
         const escrow = new ethers.Contract(config[network.chainId].escrow.address, Escrow, provider)
         setEscrow(escrow)
@@ -77,6 +79,11 @@ function App() {
     loadBlockchainData()
   }, [])
 
+  const togglePop=(home)=>{
+    setHome(home)
+    toggle ? setToggle(false) : setToggle(true)
+  }
+
   return (
     <div>
       <Navigation account={account} setAccount={setAccount}/>
@@ -90,7 +97,7 @@ function App() {
 
           {homes.map((home,index)=>(
 
-            <div className='card' key={index}>
+            <div className='card' key={index} onClick={()=>togglePop(home)}>
 
               <div className='card_image'>
                 <img src={home.image}/>
@@ -113,6 +120,9 @@ function App() {
         </div>
 
       </div>
+      {toggle &&
+        <Home home={home} provider={provider} account={account} escrow={escrow} togglePop={togglePop} />
+      }
 
     </div>
   );

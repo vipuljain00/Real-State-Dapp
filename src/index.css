@@ -162,7 +162,7 @@ header {
   gap: 10px;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
   margin-top: 20px;
-  border: 1px solid var(--clr-black);
+  /* border: 1px solid var(--clr-black); */
 }
 
 .card {
@@ -260,6 +260,7 @@ header {
 
 .home__image img {
   max-width: 100%;
+  border: #202020 1px solid;
 }
 
 .home__close {
@@ -287,6 +288,7 @@ header {
   padding-right: 40px;
 
   overflow-y: scroll;
+  /* border: #202020 1px solid; */
 }
 
 .home__overview h1,
@@ -296,7 +298,7 @@ header {
 }
 
 .home__overview ul {
-  margin-left: 40px;
+  /* margin-left: 40px; */
 }
 
 .home__buy,
@@ -343,22 +345,22 @@ header {
 }
 
 .home__owned {
-  height: 50px;
-  background-color: var(--clr-green);
+  /* height: 50px; */
+  /* background-color: var(--clr-green); */
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
 
-  cursor: default;
+  /* cursor: default; */
 }
 
 @media screen and (max-width: 768px) {
   nav {
-    grid-template-columns: repeat(2, 1fr);
+    /* grid-template-columns: repeat(2, 1fr); */
   }
 
   .nav__links {
-    display: none;
+    /* display: none; */
   }
 }
