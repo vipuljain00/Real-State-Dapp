@@ -1,5 +1,6 @@
 import { ethers } from 'ethers';
 import logo from '../assets/logo.svg';
+import { useEffect } from 'react';
 
 const Navigation = ({ account, setAccount }) => {
     const connectHandler = async () => {
@@ -8,6 +9,9 @@ const Navigation = ({ account, setAccount }) => {
         setAccount(account);
         console.log(account)
     }
+    useEffect (()=>{
+        console.log("Account in Navigation also changed")
+    },[account])
 
     return (
         <nav>

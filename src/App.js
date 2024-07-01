@@ -65,6 +65,7 @@ function App() {
           const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
           const retreivedAccount = ethers.utils.getAddress(accounts[0])
           setAccount(retreivedAccount);
+          // console.log("Account changed : ", retreivedAccount)
         })
       }
       catch(error){

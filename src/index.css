@@ -345,14 +345,14 @@ header {
 }
 
 .home__owned {
-  /* height: 50px; */
-  /* background-color: var(--clr-green); */
+  height: 50px;
+  background-color: var(--clr-green);
 
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  /* cursor: default; */
+  cursor: default;
 }
 
 @media screen and (max-width: 768px) {
